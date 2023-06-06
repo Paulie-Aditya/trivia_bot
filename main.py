@@ -76,7 +76,7 @@ async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=
 
         flag = False
         await ctx.send(f'OK! Will do a triviadrop at `{time_for_trivia}` seconds for $`{amt_of_crypto} {currency}` for `{duration}` for `{max_entries}` users')
-        flag = True
+
     else:
         await ctx.send("You are not authorized to run this command.")
 
@@ -90,9 +90,12 @@ async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=
 async def trivia(ctx):
     if ctx.author.id in [464445762986704918, 457040844105711616]:
         global flag,amt_of_crypto,currency,duration,max_entries,time_for_trivia
+        flag = True
         while(flag):
             await ctx.send(f'$triviadrop ${amt_of_crypto} {currency} for {duration} for {max_entries}')
             time.sleep(time_for_trivia)
+        else:
+            await ctx.send(f'Configuration changed. Run `{prefix}start`again')
     else:
         await ctx.send("You are not authorized to run this command.")
 
@@ -104,7 +107,7 @@ async def helpme(ctx):
 
         embed=nextcord.Embed(title = "My commands", color= 0x21f9fd)
         embed.add_field(name = f'`{prefix}config`', value  = f'How to Use: `{prefix}config [time_for_trivia] [amt_of_crypto] [currency] [duration] [max_entries]`\n\n\n`[time_for_trivia]` -> Time after which triviadrop will be scheduled\n`[amt_of_crypto]` -> Amount to giveaway during triviadrop\n`[currency]` -> Coin/token to giveaway during triviadrop\n`[duration]` -> Duration of triviadrop\n`[max_entries]` -> Max entries of Triviadrop',inline=False)
-        embed.add_field(name = f'`{prefix}start`' , value = 'Run this command in whichever channel you want to have the Trivia Drops in.\nRunning this command is mandatory to get the bot started.\nNeeds to be run again if config command has been used to change values.',inline=False)
+        embed.add_field(name = f'`{prefix}start`' , value = 'Run this command in whichever channel you want to have the Trivia Drops in.\nRunning this command is mandatory to get the bot started.\nNeeds to be run again if config command has been used.',inline=False)
         embed.add_field(name = f'`{prefix}helpme`', value = 'This is what got you here.',inline=False)
         embed.add_field(name = f'`{prefix}bals`', value ='This shows my balances.',inline=False)
         embed.add_field(name = f'`{prefix}say`', value = 'Makes me say whatever you want me to.',inline=False)
