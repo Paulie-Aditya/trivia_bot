@@ -27,7 +27,7 @@ async def prefix_command(ctx,arg=prefix):
         global prefix
         prefix = arg
         bot.command_prefix = prefix
-        await ctx.send(f'Prefix of the bot is now {prefix}')
+        await ctx.send(f'Prefix of the bot is now `{prefix}`')
 
 
     else:
