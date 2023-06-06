@@ -97,7 +97,7 @@ async def trivia(ctx):
         await ctx.send("You are not authorized to run this command.")
 
 
-#Help Command 
+#Help Command
 @bot.command(name = "helpme")
 async def helpme(ctx):
     if ctx.author.id in [464445762986704918, 457040844105711616]:
@@ -113,7 +113,6 @@ async def helpme(ctx):
         pass
     else:
         await ctx.send("You are not authorized to run this command.")
-
 
 
 bot.run(config.trivia_bot_token)
