@@ -93,7 +93,7 @@ async def trivia(ctx):
         flag = True
         while(flag):
             await ctx.send(f'$triviadrop ${amt_of_crypto} {currency} for {duration} for {max_entries}')
-            time.sleep(time_for_trivia)
+            asyncio.sleep(time_for_trivia)
         else:
             await ctx.send(f'Configuration changed. Run `{prefix}start`again')
     else:
