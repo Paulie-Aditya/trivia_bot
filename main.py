@@ -66,7 +66,7 @@ flag = True             #Flag to setup config and start commands
 @bot.command(name = 'config')
 async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=duration,arg5 = max_entries):
     if ctx.author.id in [464445762986704918, 457040844105711616]:
-        global time_for_trivia, amt_of_crypto, currency, duration, max_entries,flag
+        global time_for_trivia, amt_of_crypto, currency, duration, max_entries,flag,command
 
         time_for_trivia = arg1
         amt_of_crypto = arg2
@@ -74,8 +74,10 @@ async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=
         duration = arg4
         max_entries = arg5
 
-        flag = False
+
         await ctx.send(f'OK! Will do a triviadrop at `{time_for_trivia}` seconds for $`{amt_of_crypto} {currency}` for `{duration}` for `{max_entries}` users')
+        command = 'config'
+        flag = False
 
     else:
         await ctx.send("You are not authorized to run this command.")
@@ -89,13 +91,17 @@ async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=
 
 async def trivia(ctx):
     if ctx.author.id in [464445762986704918, 457040844105711616]:
-        global flag,amt_of_crypto,currency,duration,max_entries,time_for_trivia
+        global flag,amt_of_crypto,currency,duration,max_entries,time_for_trivia,command
         flag = True
         while(flag):
             await ctx.send(f'$triviadrop ${amt_of_crypto} {currency} for {duration} for {max_entries}')
             await asyncio.sleep(time_for_trivia)
         else:
-            await ctx.send(f'Configuration changed. Run `{prefix}start`again')
+            if command == 'stop':
+                await ctx.send(f'{prefix}start has been Stopped. Run `{prefix}start`again')
+            else:
+                await ctx.send(f'Configuration changed. Run `{prefix}start`again')
+
     else:
         await ctx.send("You are not authorized to run this command.")
 
@@ -103,9 +109,12 @@ async def trivia(ctx):
 @bot.command(name = "stop")
 async def stop(ctx):
     if ctx.author.id in [464445762986704918, 457040844105711616]:
-        global flag
-        flag = False
+        global flag,command
         ctx.send(f'Stopping the `{prefix}start` command')
+        command = 'stop'
+        flag = False
+
+
     else:
         await ctx.send("You are not authorized to run this command.")
 
