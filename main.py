@@ -98,7 +98,7 @@ async def trivia(ctx):
             await asyncio.sleep(time_for_trivia)
         else:
             if command == 'stop':
-                await ctx.send(f'{prefix}start has been Stopped. Run `{prefix}start`again')
+                await ctx.send(f'`{prefix}start` has been Stopped. Run `{prefix}start`again')
             else:
                 await ctx.send(f'Configuration changed. Run `{prefix}start`again')
 
