@@ -5,7 +5,7 @@ I would love to check it out!
 '''
 import nextcord
 from nextcord.ext import commands
-import time
+import asyncio
 
 import config_triviabot
 
@@ -93,7 +93,7 @@ async def trivia(ctx):
         flag = True
         while(flag):
             await ctx.send(f'$triviadrop ${amt_of_crypto} {currency} for {duration} for {max_entries}')
-            time.sleep(time_for_trivia)
+            await asyncio.sleep(time_for_trivia)
         else:
             await ctx.send(f'Configuration changed. Run `{prefix}start`again')
     else:
@@ -108,6 +108,7 @@ async def helpme(ctx):
         embed=nextcord.Embed(title = "My commands", color= 0x21f9fd)
         embed.add_field(name = f'`{prefix}config`', value  = f'How to Use: `{prefix}config [time_for_trivia] [amt_of_crypto] [currency] [duration] [max_entries]`\n\n\n`[time_for_trivia]` -> Time after which triviadrop will be scheduled\n`[amt_of_crypto]` -> Amount to giveaway during triviadrop\n`[currency]` -> Coin/token to giveaway during triviadrop\n`[duration]` -> Duration of triviadrop\n`[max_entries]` -> Max entries of Triviadrop',inline=False)
         embed.add_field(name = f'`{prefix}start`' , value = 'Run this command in whichever channel you want to have the Trivia Drops in.\nRunning this command is mandatory to get the bot started.\nNeeds to be run again if config command has been used.',inline=False)
+        embed.add_field(name = f'{prefix}prefix', value = f'Syntax: `{prefix}prefix [new_prefix]`\nSets a new prefix for the bot.')
         embed.add_field(name = f'`{prefix}helpme`', value = 'This is what got you here.',inline=False)
         embed.add_field(name = f'`{prefix}bals`', value ='This shows my balances.',inline=False)
         embed.add_field(name = f'`{prefix}say`', value = 'Makes me say whatever you want me to.',inline=False)
