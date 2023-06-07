@@ -110,7 +110,7 @@ async def trivia(ctx):
 async def stop(ctx):
     if ctx.author.id in [464445762986704918, 457040844105711616]:
         global flag,command
-        ctx.send(f'Stopping the `{prefix}start` command')
+        await ctx.send(f'Stopping the `{prefix}start` command')
         command = 'stop'
         flag = False
 
