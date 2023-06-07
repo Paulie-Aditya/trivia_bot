@@ -99,6 +99,16 @@ async def trivia(ctx):
     else:
         await ctx.send("You are not authorized to run this command.")
 
+#Stop command
+@bot.command(name = "stop")
+async def stop(ctx):
+    if ctx.author.id in [464445762986704918, 457040844105711616]:
+        global flag
+        flag = False
+        ctx.send(f'Stopping the `{prefix}start` command')
+    else:
+        await ctx.send("You are not authorized to run this command.")
+
 
 #Help Command
 @bot.command(name = "helpme")
