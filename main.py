@@ -139,4 +139,4 @@ async def helpme(ctx):
         await ctx.send("You are not authorized to run this command.")
 
 
-bot.run(config.trivia_bot_token)
+bot.run(config_triviabot.trivia_bot_token)
