@@ -61,7 +61,8 @@ max_entries = 30        #Max entries of Triviadrop
 flag = True             #Flag to setup config and start commands
 
 
-#Configuration command
+'''
+#Old Configuration command
 #Syntax: {prefix}config [time_for_trivia] [amt_of_crypto] [currency] [duration] [max_entries]
 @bot.command(name = 'config')
 async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=duration,arg5 = max_entries):
@@ -81,9 +82,51 @@ async def config(ctx,arg1=time_for_trivia,arg2=amt_of_crypto,arg3=currency,arg4=
 
     else:
         await ctx.send("You are not authorized to run this command.")
+'''
+
+#Configuration command but in slash
+@bot.slash_command(name = 'config',description = "Configuration Command")
+async def config(
+    interaction: nextcord.Interaction,
+    
+    time: int = nextcord.SlashOption(
+        required=True, 
+        description="Time after which triviadrop will start",
+    ),
+    amount: float = nextcord.SlashOption(
+        required=True,
+        description= "Amount to giveaway during triviadrop",
+    ),
+    token: str = nextcord.SlashOption(
+        required=True,
+        description="Coin/token to giveaway during triviadrop",
+    ),
+    duration_of_trivia: str = nextcord.SlashOption(
+        required=True,
+        description= "Duration of triviadrop",
+    ),
+    entries: int = nextcord.SlashOption(
+        required= True,
+        description= "Max Entries of Trivia",
+    )
+    
+):
+    if interaction.user.id in [464445762986704918, 457040844105711616]:
+        global time_for_trivia, amt_of_crypto, currency, duration, max_entries,flag,command
+
+        time_for_trivia = time
+        amt_of_crypto = amount
+        currency = token.upper()
+        duration = duration_of_trivia
+        max_entries = entries
 
 
+        await interaction.response.send_message(f'OK! Will do a triviadrop at `{time_for_trivia}` seconds for `{amt_of_crypto} {currency}` for `{duration}` for `{max_entries}` users')
+        command = 'config'
+        flag = False
 
+    else:
+        await interaction.response.send_message("You are not authorized to run this command.")
 #To be run in whatever channel you want the trivia drops to happen
 #Running this command is mandatory to get the bot started.
 #Needs to be run again if config command has been used to change values.
@@ -94,7 +137,7 @@ async def trivia(ctx):
         global flag,amt_of_crypto,currency,duration,max_entries,time_for_trivia,command
         flag = True
         while(flag):
-            await ctx.send(f'$triviadrop ${amt_of_crypto} {currency} for {duration} for {max_entries}')
+            await ctx.send(f'$triviadrop {amt_of_crypto} {currency} for {duration} for {max_entries}')
             await asyncio.sleep(time_for_trivia)
         else:
             if command == 'stop':
